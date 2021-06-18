@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
+import { CrearPalabras } from "./components/CrearPalabras";
 import { Info } from "./components/Info";
+import { Palabras } from "./components/Palabras";
 import { palabras } from "./datos/palabras";
 
 function App() {
@@ -12,7 +14,7 @@ function App() {
   const [listadoLenguajes, setListadoLenguajes] = useState([]);
 
   //Gasta un uso de la palabra y la coloca en el listado de la derecha
-  const anyadirPalabra = (palabraClicada) => {
+  const moveToFrase = (palabraClicada) => {
     setMisPalabras(
       misPalabras.map((palabra) => {
         if (palabra.id === palabraClicada.id) {
@@ -25,6 +27,22 @@ function App() {
       ...frasePalabras,
       misPalabras.find((palabra) => palabra.id === palabraClicada.id),
     ]);
+  };
+
+  //Suma un uso a la palabra y la borra del listado
+  const moveToPalabras = (palabraClicada) => {
+    //TODO Que no borre todas las mismas palabras si esta repetida
+    setMisPalabras(
+      misPalabras.map((palabra) => {
+        if (palabra.id === palabraClicada.id) {
+          return { ...palabra, usos: palabra.usos + 1 };
+        }
+        return palabra;
+      })
+    );
+    setFrasePalabras(
+      frasePalabras.filter((palabra) => palabra.id !== palabraClicada.id)
+    );
   };
 
   //Actualiza el componente Info segun las palabras que haya en el listado de la frase
@@ -45,28 +63,28 @@ function App() {
     );
   }, [frasePalabras, numeroPalabras, numeroCaracteres]);
 
-  //Suma un uso a la palabra y la borra del listado
-  const borrarPalabra = (palabraClicada) => {
-    //TODO Que no borre todas las mismas palabras si esta repetida
-    setMisPalabras(
-      misPalabras.map((palabra) => {
-        if (palabra.id === palabraClicada.id) {
-          return { ...palabra, usos: palabra.usos + 1 };
-        }
-        return palabra;
-      })
-    );
-    setFrasePalabras(
-      frasePalabras.filter((palabra) => palabra.id !== palabraClicada.id)
-    );
+  const anyadirPalabra = (
+    e,
+    nuevaPalabra,
+    usosNuevaPalabra,
+    lenguajeNuevaPalabra
+  ) => {
+    e.preventDefault();
+    setMisPalabras([
+      ...misPalabras,
+      {
+        id: getMaxId(misPalabras) + 1,
+        palabra: nuevaPalabra,
+        lenguajeProgramacion: lenguajeNuevaPalabra,
+        usos: usosNuevaPalabra,
+      },
+    ]);
   };
 
-  const palabrasIguales = (palabra1, palabra2) =>
-    palabra1.ToUpperCase() === palabra2.ToUpperCase();
-
-  const contarNumeroLenguajes = (array) => {
+  //Devuelve el numero de lenguajes de el array
+  const contarNumeroLenguajes = (arrayPalabras) => {
     let cont = 0;
-    for (const palabra of array) {
+    for (const palabra of arrayPalabras) {
       if (palabra.lenguajeProgramacion) {
         cont++;
       }
@@ -74,66 +92,26 @@ function App() {
     return cont;
   };
 
+  //Devuelve el id mas grande de el array
+  const getMaxId = (arrayPalabras) => {
+    if (arrayPalabras.length === 0) {
+      return 0;
+    }
+    return Math.max(...arrayPalabras.map((palabra) => palabra.id));
+  };
+
   return (
     <>
-      <section className="palabras">
-        <ul className="lista-palabras">
-          {misPalabras.map((palabra) => {
-            if (palabra.usos !== 0) {
-              return (
-                <li
-                  key={palabra.id}
-                  data-lenguaje={palabra.lenguajeProgramacion ? "si" : "no"}
-                  onClick={() => anyadirPalabra(palabra)}
-                >
-                  {palabra.palabra}
-                </li>
-              );
-            }
-            return <></>;
-          })}
-        </ul>
-        <ul className="resultado">
-          {frasePalabras.map((palabra, indice) => (
-            <li
-              key={palabra.id}
-              data-lenguaje={palabra.lenguajeProgramacion ? "si" : "no"}
-              onClick={() => borrarPalabra(palabra)}
-            >
-              {indice === 0
-                ? palabra.palabra.charAt(0).toUpperCase() +
-                  palabra.palabra.slice(1)
-                : palabra.palabra}
-            </li>
-          ))}
-        </ul>
-      </section>
-      <section className="crear-palabras">
-        <form className="form-palabras">
-          <div className="form-grupo">
-            <input type="text" placeholder="Nueva palabra" required />
-          </div>
-          <div className="form-grupo">
-            <select required>
-              <option value="">Máximo de veces</option>
-              <option value="0">Sin límite</option>
-              <option value="1">1 vez</option>
-              <option value="2">2 veces</option>
-              <option value="3">3 veces</option>
-            </select>
-          </div>
-          <div className="form-grupo">
-            <label>
-              <input type="checkbox" /> Es un lenguaje de programación
-            </label>
-          </div>
-          <div className="form-grupo">
-            <button type="submit" disabled>
-              Crear
-            </button>
-          </div>
-        </form>
-      </section>
+      <Palabras
+        misPalabras={misPalabras}
+        frasePalabras={frasePalabras}
+        moveToFrase={moveToFrase}
+        moveToPalabras={moveToPalabras}
+      />
+      <CrearPalabras
+        misPalabras={misPalabras}
+        anyadirPalabra={anyadirPalabra}
+      />
       <Info
         numeroPalabras={numeroPalabras}
         numeroCaracteres={numeroCaracteres}
