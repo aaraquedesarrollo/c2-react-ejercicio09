@@ -1,10 +1,15 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Info } from "./components/Info";
 import { palabras } from "./datos/palabras";
 
 function App() {
   const [misPalabras, setMisPalabras] = useState(palabras);
   const [frasePalabras, setFrasePalabras] = useState([]);
+  const [numeroPalabras, setNumeroPalabras] = useState(0);
+  const [numeroCaracteres, setNumeroCaracteres] = useState(0);
+  const [longitudMedia, setLongitudMedia] = useState("");
+  const [numeroLenguajes, setNumeroLenguajes] = useState(0);
+  const [listadoLenguajes, setListadoLenguajes] = useState([]);
 
   //Gasta un uso de la palabra y la coloca en el listado de la derecha
   const anyadirPalabra = (palabraClicada) => {
@@ -21,6 +26,24 @@ function App() {
       misPalabras.find((palabra) => palabra.id === palabraClicada.id),
     ]);
   };
+
+  //Actualiza el componente Info segun las palabras que haya en el listado de la frase
+  useEffect(() => {
+    setNumeroPalabras(frasePalabras.length);
+    setNumeroCaracteres(
+      frasePalabras.map((palabra) => palabra.palabra).join("").length
+    );
+    setLongitudMedia(
+      numeroPalabras !== 0 ? (numeroCaracteres / numeroPalabras).toFixed(2) : ""
+    );
+    setNumeroLenguajes(contarNumeroLenguajes(frasePalabras));
+    setListadoLenguajes(
+      frasePalabras
+        .filter((palabra) => palabra.lenguajeProgramacion)
+        .map((palabra) => palabra.palabra)
+        .sort()
+    );
+  }, [frasePalabras, numeroPalabras, numeroCaracteres]);
 
   //Suma un uso a la palabra y la borra del listado
   const borrarPalabra = (palabraClicada) => {
@@ -41,6 +64,16 @@ function App() {
   const palabrasIguales = (palabra1, palabra2) =>
     palabra1.ToUpperCase() === palabra2.ToUpperCase();
 
+  const contarNumeroLenguajes = (array) => {
+    let cont = 0;
+    for (const palabra of array) {
+      if (palabra.lenguajeProgramacion) {
+        cont++;
+      }
+    }
+    return cont;
+  };
+
   return (
     <>
       <section className="palabras">
@@ -57,6 +90,7 @@ function App() {
                 </li>
               );
             }
+            return <></>;
           })}
         </ul>
         <ul className="resultado">
@@ -100,7 +134,13 @@ function App() {
           </div>
         </form>
       </section>
-      <Info />
+      <Info
+        numeroPalabras={numeroPalabras}
+        numeroCaracteres={numeroCaracteres}
+        longitudMedia={longitudMedia}
+        numeroLenguajes={numeroLenguajes}
+        listadoLenguajes={listadoLenguajes}
+      />
     </>
   );
 }

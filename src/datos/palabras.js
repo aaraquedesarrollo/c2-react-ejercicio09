@@ -9,7 +9,7 @@ export const palabras = [
     id: 2,
     palabra: "JavaScript",
     lenguajeProgramacion: true,
-    usos: 3,
+    usos: 1,
   },
   {
     id: 3,
