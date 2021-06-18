@@ -1,70 +1,22 @@
-# Getting Started with Create React App
+# Ejercicio Palabras
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Programa la siguiente interfaz para que:
 
-## Available Scripts
+1. Cada vez que se haga clic sobre una palabra de la caja de la izquierda, aparezca **una copia** en la de la derecha.
+2. Cada vez que se haga clic sobre una palabra de la caja de la derecha, desaparezca de esta caja.
+3. La primera palabra de la caja de la derecha, sea cual sea, siempre tiene que tener la primera letra en mayúscula.
+4. En la caja inferior debe aparecer un análisis de la frase que se está construyendo, en el que aparezcan:
 
-In the project directory, you can run:
+- Número de palabras de la frase.
+- Número de caracteres de la frase.
+- Longitud media de las palabras de la frase, con dos decimales.
+- Número y listado de lenguajes de programación que aparecen en la frase, ordenados alfabéticamente.
 
-### `npm start`
+5. Haz que se puedan añadir palabras a la caja de la izquierda mediante el formulario, teniendo en cuenta que:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- Si no se ha escrito nada en el input, el botón estará disabled. Se activa cuando hay algo escrito en el input.
+- No se pueden añadir palabras que ya existan en la caja de la izquierda.
+- No se pueden añadir palabras con espacios.
+- Si se marca la opción "Es un lenguaje de programación", la palabra debe marcarse en el HTML como lenguaje. Fíjate en las palabras actuales "JavaScript" y "Java".
+- Cada nueva palabra debe llevar asociado el máximo número de veces que puede usarse.
+- Una palabra no se debe poder añadir más veces que dicho máximo.

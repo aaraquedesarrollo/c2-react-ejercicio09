@@ -1,13 +1,104 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+* {
+  box-sizing: border-box;
 }
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+body {
+  font-family: Montserrat, sans-serif;
+  background-color: #333944;
+  color: #e2dfd4;
+}
+ul,
+li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.lista-palabras,
+.resultado {
+  width: calc(50% - 20px);
+  height: 200px;
+  border: 3px dashed #e6e8d3;
+  padding: 10px;
+  overflow-y: auto;
+}
+.palabras .lista-palabras {
+  margin-right: 20px;
+  padding-top: 5px;
+  padding-right: 5px;
+}
+.palabras li {
+  cursor: pointer;
+  display: inline-block;
+  margin-bottom: 5px;
+  text-align: center;
+  padding: 5px 10px;
+  background-color: #e2dfd4;
+  color: #000;
+  margin-left: 4px;
+}
+.palabras {
+  height: 200px;
+  margin-bottom: 30px;
+  display: flex;
+  justify-content: space-between;
+}
+input[type="text"],
+select {
+  height: 30px;
+  padding: 0 5px;
+}
+button {
+  height: 30px;
+  background-color: #ccc;
+  border: none;
+  padding: 5px 10px;
+}
+.info {
+  width: 400px;
+  margin: 0 auto;
+  border: 1px solid #e6e8d3;
+  border-right: none;
+  border-bottom: none;
+  font-size: 0.8rem;
+}
+.info > ul {
+  display: flex;
+  flex-wrap: wrap;
+}
+.info > ul > li {
+  width: 33.33333%;
+  padding: 10px;
+  border-right: 1px solid #e6e8d3;
+  border-bottom: 1px solid #e6e8d3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.info > ul > li:last-child {
+  width: 100%;
+}
+.info > ul > li span,
+.info > ul > li ul {
+  margin-top: 10px;
+  font-size: 1rem;
+}
+label {
+  font-size: 0.8rem;
+}
+label,
+input[type="checkbox"] {
+  vertical-align: middle;
+}
+.form-palabras {
+  display: flex;
+  width: 640px;
+  margin: 0 auto;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+button {
+  background-color: #e6e8d3;
+}
+button:disabled {
+  opacity: 0.2;
 }
