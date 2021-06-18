@@ -1,3 +1,6 @@
+import { FrasePalabra } from "./FrasePalabra";
+import { Palabra } from "./Palabra";
+
 export const Palabras = (props) => {
   const { misPalabras, frasePalabras, moveToFrase, moveToPalabras } = props;
   return (
@@ -6,13 +9,11 @@ export const Palabras = (props) => {
         {misPalabras.map((palabra) => {
           if (palabra.usos !== 0) {
             return (
-              <li
+              <Palabra
                 key={palabra.id}
-                data-lenguaje={palabra.lenguajeProgramacion ? "si" : "no"}
-                onClick={() => moveToFrase(palabra)}
-              >
-                {palabra.palabra}
-              </li>
+                palabra={palabra}
+                moveToFrase={moveToFrase}
+              ></Palabra>
             );
           }
           return <></>;
@@ -20,16 +21,12 @@ export const Palabras = (props) => {
       </ul>
       <ul className="resultado">
         {frasePalabras.map((palabra, indice) => (
-          <li
+          <FrasePalabra
             key={palabra.id}
-            data-lenguaje={palabra.lenguajeProgramacion ? "si" : "no"}
-            onClick={() => moveToPalabras(palabra)}
-          >
-            {indice === 0
-              ? palabra.palabra.charAt(0).toUpperCase() +
-                palabra.palabra.slice(1)
-              : palabra.palabra}
-          </li>
+            palabra={palabra}
+            indice={indice}
+            moveToPalabras={moveToPalabras}
+          />
         ))}
       </ul>
     </section>
